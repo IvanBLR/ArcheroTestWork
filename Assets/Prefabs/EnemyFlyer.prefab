@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 8329917570662193280}
   - component: {fileID: 5465186926773085103}
   - component: {fileID: 7255362224795394894}
-  - component: {fileID: 4004208194357818661}
+  - component: {fileID: 5405634229490137988}
+  - component: {fileID: 3492747346024212042}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: EnemyFlyer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f9a3f46ceedab5f49b50bb507f476b4f, type: 2}
+  - {fileID: 2100000, guid: c569c280f0eb52a49a7b2a6b8b0cbcf8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -106,7 +107,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4004208194357818661
+--- !u!114 &5405634229490137988
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,6 +116,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 3536541810829325920}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22952824da914334a7d91855eb045165, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b2abf98a6f14310b0766ebb9e768b4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &3492747346024212042
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3536541810829325920}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
