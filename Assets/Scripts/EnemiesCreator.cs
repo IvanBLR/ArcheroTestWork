@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class EnemiesCreator : MonoBehaviour
 {
+    [SerializeField] private Player _player;
     [SerializeField] private Transform _enemiesParent;
     [SerializeField] private List<Enemy> _enemy;
 
@@ -16,14 +16,11 @@ public class EnemiesCreator : MonoBehaviour
 
     private bool _isGoalKeeperAlreadyInstantiate;
     private bool _flag;
-   // private Vector3 _startEnemyPoint;
 
-    private void Start()
+    private void Awake()
     {
-        //_startEnemyPoint = Vector3.zero;
         for (int i = 0; i < _enemy.Count; i++)
         {
-            Debug.Log($"it is {i} Instantiate iteration");
             CreateEnemy(_enemy[i]);
         }
     }
@@ -34,7 +31,6 @@ public class EnemiesCreator : MonoBehaviour
         {
             if (_isGoalKeeperAlreadyInstantiate)
             {
-                Debug.Log("Goalkeeper is already exist");
                 return;
             }
 
@@ -43,9 +39,11 @@ public class EnemiesCreator : MonoBehaviour
         }
         else
         {
-           var point = CreateStartEnemyPoint(enemy);
+            var point = CreateStartEnemyPoint(enemy);
             Instantiate(enemy, point, Quaternion.identity, _enemiesParent);
         }
+
+        enemy.SetPlayer(_player);
     }
 
     private Vector3 CreateStartEnemyPoint(Enemy enemy)
@@ -54,16 +52,15 @@ public class EnemiesCreator : MonoBehaviour
         int maxAttempt = 25;
         for (int i = 0; i < maxAttempt; i++)
         {
-            Vector3 point = new Vector3(Random.Range(_minX, _maxX + 1), radius * 3 + 0.1f, Random.Range(_minZ, _maxZ + 1));
+            Vector3 point = new Vector3(Random.Range(_minX, _maxX + 1), radius * 3 + 0.1f,
+                Random.Range(_minZ, _maxZ + 1));
             Collider[] colliders = Physics.OverlapSphere(point, radius);
             if (colliders.Length == 0)
             {
-                Debug.Log($"success before {i} attempt");
                 return point;
-            } 
+            }
         }
 
         return _goalkeeperStartPoint;
-
     }
 }
