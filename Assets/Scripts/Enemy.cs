@@ -2,34 +2,24 @@
 
 public class Enemy : MonoBehaviour
 {
-    public float Health { get; protected set; }
-    public float Cooldown { get; protected set; }
-    public float Damage { get; protected set; }
-    public bool CanFly { get; protected set; }
-    public bool CanStrike { get; protected set; }
+    public float Health => _health;
+    public float Damage => _damage;
+    public float Cooldown => _cooldown;
+    public Player Player => _player;
+    public string Name => _name;
 
-    public Player Player { get; protected set; }
+    private float _health;
+    private float _damage;
+    private float _cooldown;
+    private Player _player;
+    private string _name;
 
-    private void Update()
+    public void InitializeEnemy(float health, float damage, float cooldown, string name, Player player)
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-            Fire();
-    }
-
-    public virtual void TakeDamage(float damage)
-    {
-    }
-
-    public virtual void GiveDamage(float damage)
-    {
-    }
-
-    public virtual void SetPlayer(Player player)
-    {
-    }
-
-    public virtual void Fire()
-    {
-//        Debug.Log($"Distance = {Vector3.Distance(transform.position, PlayerPrefab.transform.position)}");
+        _health = health;
+        _damage = damage;
+        _cooldown = cooldown;
+        _name = name;
+        _player = player;
     }
 }

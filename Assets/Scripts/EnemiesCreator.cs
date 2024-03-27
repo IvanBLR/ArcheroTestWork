@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -6,44 +7,86 @@ public class EnemiesCreator : MonoBehaviour
 {
     [SerializeField] private Player _player;
     [SerializeField] private Transform _enemiesParent;
-    [SerializeField] private List<Enemy> _enemy;
-
+    [SerializeField] private Enemy _enemy;
+    [SerializeField] private List<Material> _enemiesMaterials;
     [SerializeField] private Vector3 _goalkeeperStartPoint;
     [SerializeField] private int _minX;
     [SerializeField] private int _maxX;
     [SerializeField] private int _minZ;
     [SerializeField] private int _maxZ;
 
+    private List<Enemy> _enemies = new();
     private bool _isGoalKeeperAlreadyInstantiate;
     private bool _flag;
+    // private Player _player;
 
-    private void Awake()
+    private void Start()
     {
-        for (int i = 0; i < _enemy.Count; i++)
+        for (int i = 0; i < 6; i++)
         {
-            CreateEnemy(_enemy[i]);
+            var enemy = CreateEnemy(i);
+            _enemies.Add(enemy);
         }
     }
 
-    private void CreateEnemy(Enemy enemy)
+    private void Update()
     {
-        if (enemy is EnemyGoalkeeper)
+        if (Input.GetKeyDown(KeyCode.K))
         {
-            if (_isGoalKeeperAlreadyInstantiate)
+            for (int i = 0; i < _enemies.Count; i++)
             {
-                return;
+                Debug.Log(_enemies[i].Name);
             }
-
-            Instantiate(enemy, _goalkeeperStartPoint, Quaternion.identity, _enemiesParent);
-            _isGoalKeeperAlreadyInstantiate = true;
         }
-        else
+    }
+
+    private Enemy CreateEnemy(int enumerator)
+    {
+        if (enumerator == 0) // goalkeeper
         {
-            var point = CreateStartEnemyPoint(enemy);
-            Instantiate(enemy, point, Quaternion.identity, _enemiesParent);
+            var enemy = Instantiate(_enemy, _goalkeeperStartPoint, Quaternion.identity, _enemiesParent);
+            enemy.InitializeEnemy
+            (GameConstants.ENEMY_GOALKEEPER_HEALTH,
+                GameConstants.ENEY_GOALKEEPER_DAMAGE,
+                GameConstants.ENEMY_GOALKEEPER_COOLDOWN,
+                GameConstants.ENEMY_GOALKEEPER_NAME,
+                _player
+            );
+            enemy.GetComponent<MeshRenderer>().material = _enemiesMaterials[0];
+            return enemy;
         }
 
-        enemy.SetPlayer(_player);
+        if (enumerator % 2 == 1) // striker
+        {
+            var point = CreateStartEnemyPoint(_enemies[0]);
+            var enemy = Instantiate(_enemy, point, Quaternion.identity, _enemiesParent);
+            enemy.InitializeEnemy
+            (GameConstants.ENEMY_STRIKER_HEALTH,
+                GameConstants.ENEMY_STRIKER_DAMAGE,
+                GameConstants.ENEMY_STRIKER_COOLDOWN,
+                GameConstants.ENEMY_STRIKER_NAME,
+                _player
+            );
+            enemy.GetComponent<MeshRenderer>().material = _enemiesMaterials[1];
+            return enemy;
+        }
+
+        if (enumerator % 2 == 0) // flyer
+        {
+            var point = CreateStartEnemyPoint(_enemies[0]);
+            var enemy = Instantiate(_enemy, point, Quaternion.identity, _enemiesParent);
+            enemy.InitializeEnemy
+            (GameConstants.ENEMY_FLYER_HEALTH,
+                GameConstants.ENEMY_FLYER_DAMAGE,
+                GameConstants.ENEMY_FLYER_COOLDOWN,
+                GameConstants.ENEMY_FLYER_NAME,
+                _player
+            );
+            enemy.GetComponent<MeshRenderer>().material = _enemiesMaterials[2];
+            return enemy; 
+        }
+
+        return null;
     }
 
     private Vector3 CreateStartEnemyPoint(Enemy enemy)

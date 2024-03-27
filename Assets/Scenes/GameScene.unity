@@ -347,13 +347,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 1658903187}
   _enemiesParent: {fileID: 815634707}
-  _enemy:
-  - {fileID: 1146928096497512396, guid: 6b2b00c8c05804042bfe56cdb46676f3, type: 3}
-  - {fileID: 476051672729559384, guid: 7d68fed3a78eabc4e8b341ee7c74298d, type: 3}
-  - {fileID: 5405634229490137988, guid: 78401165011de4040a154d168a44053a, type: 3}
-  - {fileID: 1146928096497512396, guid: 6b2b00c8c05804042bfe56cdb46676f3, type: 3}
-  - {fileID: 5405634229490137988, guid: 78401165011de4040a154d168a44053a, type: 3}
-  - {fileID: 1146928096497512396, guid: 6b2b00c8c05804042bfe56cdb46676f3, type: 3}
+  _enemy: {fileID: 1879385897540157179, guid: 6b2b00c8c05804042bfe56cdb46676f3, type: 3}
+  _enemiesMaterials:
+  - {fileID: 2100000, guid: 4774ec140f6674e488cc8cc41722338e, type: 2}
+  - {fileID: 2100000, guid: c569c280f0eb52a49a7b2a6b8b0cbcf8, type: 2}
+  - {fileID: 2100000, guid: f9a3f46ceedab5f49b50bb507f476b4f, type: 2}
   _goalkeeperStartPoint: {x: -7.5, y: 1.5, z: 5}
   _minX: -9
   _maxX: 9
